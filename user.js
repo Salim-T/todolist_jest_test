@@ -41,5 +41,7 @@ export class User {
     if (!isValidFirstanme()) return "Too low char";
 
     if (!isValidLastname()) return "Too low char";
+
+    return true;
   };
 }
