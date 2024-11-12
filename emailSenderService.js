@@ -1,10 +1,9 @@
 class EmailSenderService {
-    constructor() {
-    }
+  constructor() {}
 
-    sendEmail(receiver, content) {
-        console.log(`Email sent to ${receiver} with content: ${content}`);
-    }
+  sendEmail(receiver, content) {
+    console.log(`Email sent to ${receiver} with content: ${content}`);
+  }
 }
 
 module.exports = EmailSenderService;

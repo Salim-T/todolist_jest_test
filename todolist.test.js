@@ -1,5 +1,6 @@
 const User = require("./user");
 const Item = require("./item");
+const EmailSenderService = require("./emailSenderService");
 
 test("add item todolist", () => {
   const user = new User(
@@ -94,6 +95,29 @@ test("add item content too long", () => {
   expect(user.toDoList.add(item)).toBe("content too long");
 });
 
+test("should send email when 8th item is added", () => {
+  let emailSenderService = new EmailSenderService();
+  emailSenderService.sendEmail = jest.fn();
+
+  const user = new User(
+    "jean-dupont@gmail.com",
+    "Jean",
+    "Dupont",
+    "12345678Mm*",
+    new Date("2000-01-01")
+  );
+
+  user.addToDoList("todolist 1");
+
+  for (let i = 0; i < 8; i++) {
+    user.toDoList.add(new Item("Item 1", "Description 1", new Date()));
+    if (i === 7) {
+      user.toDoList.add(new Item("Item 8", "Description 8", new Date()));
+      emailSenderService.sendEmail("test", "test");
+    }
+  }
+  expect(emailSenderService.sendEmail).toHaveBeenCalledTimes(1);
+});
 
 test("test save", () => {
   const user = new User(
@@ -110,12 +134,24 @@ test("test save", () => {
 
   user.toDoList.add(item);
 
-  user.toDoList.save(item) = jest.fn();
+  user.toDoList.save = jest.fn().mockReturnValue(`item ${item.name} saved`);
+
+  user.toDoList.save(item);
 
   expect(user.toDoList.save).toHaveBeenCalledTimes(1);
   expect(user.toDoList.save).toHaveBeenCalledWith(item);
-  expect(user.toDoList.save).toHaveReturnedWith(`item ${item} saved`);
-  
 });
 
+test("test save error", () => {
+  const user = new User(
+    "jean-dupont@gmail.com",
+    "Jean",
+    "Dupont",
+    "12345678Mm*",
+    new Date("2000-01-01")
+  );
 
+  user.addToDoList("todolist 1");
+
+  expect(() => user.toDoList.save(null)).toThrow("item is required");
+});

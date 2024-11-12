@@ -30,6 +30,15 @@ class ToDoList {
     return diff >= THIRTY_MINUTES;
   }
 
+  sendEmailWhenListGot8Items() {
+    if (this.items.length === 8) {
+      this.user.emailSender.sendEmail(
+        this.user.email,
+        "Your todolist is almost full"
+      );
+    }
+  }
+
   add(item) {
     if (!(item instanceof Item)) return "not an item";
 
@@ -43,11 +52,17 @@ class ToDoList {
 
     this.items.push(item);
     this.dateLastItem = new Date();
+
+    this.sendEmailWhenListGot8Items();
+
     return true;
   }
 
-  save(item){
-    console.log(`item ${item} saved`);
+  save(item) {
+    if (!item) {
+      throw new Error("item is required");
+    }
+    console.log(`Item ${item.name} saved`);
   }
 }
 
