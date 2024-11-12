@@ -13,15 +13,15 @@ class User {
 
   isValidPassword = () => {
     return new RegExp(
-      "^(?=.[a-z])(?=.[A-Z])(?=.d)(?=.[@$!%?&])[A-Za-zd@$!%?&]{8,10}$"
-    ).test(this.password);
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,40}$/
+        ).test(this.password);
   };
 
   isValidBirthDate = () => {
     let dateMinus13 = new Date();
     dateMinus13.setFullYear(dateMinus13.getFullYear() - 13);
 
-    return this.birthDate.getTime() < dateMinus13.getTime();
+    return this.birthdate.getTime() < dateMinus13.getTime();
   };
 
   isValidFirstanme = () => {
