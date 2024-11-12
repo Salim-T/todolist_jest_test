@@ -18,6 +18,8 @@ class User {
   };
 
   isValidBirthDate = () => {
+    if(!this.birthdate instanceof Date) return true;
+
     let dateMinus13 = new Date();
     dateMinus13.setFullYear(dateMinus13.getFullYear() - 13);
 
@@ -33,15 +35,18 @@ class User {
   };
 
   isValid = () => {
-    console.log("HRAZIERIZARIZAJERO", this.password);
+
     if (!this.isValidEmail()) return "Invalid email";
-    if (!this.isValidFirstanme()) return "Too low char";
+
+    if (!this.isValidFirstanme()) return "Invalid firstname";
 
     if (!this.isValidPassword()) return "Invalid password";
 
-    if (!this.isValidBirthDate()) return "Too young";
+    if (!this.isValidBirthDate()) return "Invalid birthdate";
 
-    if (!this.isValidLastname()) return "Too low char";
+    if (!this.isValidLastname()) return "Invalid Lastname";
+
+    if(!this.birthdate instanceof Date) return "Invalid date";
 
     return true;
   };

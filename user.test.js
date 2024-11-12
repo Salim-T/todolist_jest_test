@@ -1,30 +1,6 @@
 const User = require("./user");
 
-test("firstname unvalid", () => {
-  let user1 = new User(
-    "jean-dupont@gmail.com",
-    "Josz",
-    "Dupont",
-    "12345678Mm*",
-    new Date("2000-01-01")
-  );
-  expect(user1.isValid()).toBe(true);
-});
-
-//tester avec une mauvaise
-
-test("lastname unvalid", () => {
-  let user1 = new User(
-    "jean-dupont@gmail.com",
-    "Jean",
-    "Dupont/",
-    "12345678Mm*",
-    new Date("2000-01-01")
-  );
-  expect(user1.isValid()).toBe(false);
-});
-
-test("email unvalid", () => {
+test("email invalid", () => {
   let user1 = new User(
     "jean-dupont@gmail",
     "Jean",
@@ -32,10 +8,36 @@ test("email unvalid", () => {
     "12345678Mm*",
     new Date("2000-01-01")
   );
-  expect(user1.isValid()).toBe(false);
+  expect(user1.isValid()).toBe("Invalid email");
 });
 
-test("password unvalid", () => {
+test("firstname invalid", () => {
+  let user1 = new User(
+    "jean-dupont@gmail.com",
+    "Jos6",
+    "Dupont",
+    "12345678Mm*",
+    new Date("2000-01-01")
+  );
+  expect(user1.isValid()).toBe("Invalid firstname");
+});
+
+//tester avec une mauvaise
+
+test("lastname invalid", () => {
+  let user1 = new User(
+    "jean-dupont@gmail.com",
+    "Jean",
+    "Dupont/",
+    "12345678Mm*",
+    new Date("2000-01-01")
+  );
+  expect(user1.isValid()).toBe("Invalid Lastname");
+});
+
+
+
+test("password invalid", () => {
   let user1 = new User(
     "jean-dupont@gmail.fr",
     "Jean",
@@ -43,10 +45,10 @@ test("password unvalid", () => {
     "12345678Mm",
     new Date("2000-01-01")
   );
-  expect(user1.isValid()).toBe(false);
+  expect(user1.isValid()).toBe("Invalid password");
 });
 
-test("age unvalid", () => {
+test("age invalid", () => {
   let user1 = new User(
     "jean-dupont@gmail.fr",
     "Jean",
@@ -54,8 +56,22 @@ test("age unvalid", () => {
     "12345678Mm*",
     new Date("2012-01-01")
   );
-  expect(user1.isValid()).toBe(false);
+  expect(user1.isValid()).toBe("Invalid birthdate");
 });
+
+//tester si la date est invalide
+test("date invalid", () => {
+  let user1 = new User(
+    "jean-dupont@gmail.fr",
+    "Jean",
+    "Dupont",
+    "12345678Mm*",
+    "2000-01-01"
+  );
+  expect(user1.isValid()).toBe("Invalid date");
+});
+
+
 
 test("all valid", () => {
   let user1 = new User(
