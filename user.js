@@ -1,47 +1,50 @@
-export class User {
-  constructor(email, firstname, lastname, birthdate) {
+class User {
+  constructor(email, firstname, lastname, password, birthdate) {
     this.email = email;
     this.firstname = firstname;
     this.lastname = lastname;
+    this.password = password;
     this.birthdate = birthdate;
   }
 
-  static isValidEmail = () => {
+  isValidEmail = () => {
     return new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g).test(this.email);
   };
 
-  static isValidPassword = () => {
+  isValidPassword = () => {
     return new RegExp(
-      /(?=^.{8,40}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"/
+      "^(?=.[a-z])(?=.[A-Z])(?=.d)(?=.[@$!%?&])[A-Za-zd@$!%?&]{8,10}$"
     ).test(this.password);
   };
 
-  static isValidBirthDate = () => {
+  isValidBirthDate = () => {
     let dateMinus13 = new Date();
     dateMinus13.setFullYear(dateMinus13.getFullYear() - 13);
 
     return this.birthDate.getTime() < dateMinus13.getTime();
   };
 
-  static isValidFirstanme = () => {
+  isValidFirstanme = () => {
     return new RegExp(/^[a-z ,.'-]+$/i).test(this.firstname);
   };
 
-  static isValidLastname = () => {
+  isValidLastname = () => {
     return new RegExp(/^[a-z ,.'-]+$/i).test(this.lastname);
   };
 
   isValid = () => {
-    if (!isValidEmail()) return "Invalid email";
+    console.log("HRAZIERIZARIZAJERO", this.password);
+    if (!this.isValidEmail()) return "Invalid email";
+    if (!this.isValidFirstanme()) return "Too low char";
 
-    if (!isValidPassword()) return "Invalid password";
+    if (!this.isValidPassword()) return "Invalid password";
 
-    if (!isValidBirthDate()) return "Too young";
+    if (!this.isValidBirthDate()) return "Too young";
 
-    if (!isValidFirstanme()) return "Too low char";
-
-    if (!isValidLastname()) return "Too low char";
+    if (!this.isValidLastname()) return "Too low char";
 
     return true;
   };
 }
+
+module.exports = User;
