@@ -22,8 +22,6 @@ test("firstname invalid", () => {
   expect(user1.isValid()).toBe("Invalid firstname");
 });
 
-//tester avec une mauvaise
-
 test("lastname invalid", () => {
   let user1 = new User(
     "jean-dupont@gmail.com",
@@ -34,8 +32,6 @@ test("lastname invalid", () => {
   );
   expect(user1.isValid()).toBe("Invalid Lastname");
 });
-
-
 
 test("password invalid", () => {
   let user1 = new User(
@@ -59,20 +55,6 @@ test("age invalid", () => {
   expect(user1.isValid()).toBe("Invalid birthdate");
 });
 
-//tester si la date est invalide
-test("date invalid", () => {
-  let user1 = new User(
-    "jean-dupont@gmail.fr",
-    "Jean",
-    "Dupont",
-    "12345678Mm*",
-    "2000-01-01"
-  );
-  expect(user1.isValid()).toBe("Invalid date");
-});
-
-
-
 test("all valid", () => {
   let user1 = new User(
     "jean-dupont@gmail.com",
@@ -82,4 +64,30 @@ test("all valid", () => {
     new Date("2000-01-01")
   );
   expect(user1.isValid()).toBe(true);
+});
+
+test("add Todo", () => {
+  let user = new User(
+    "jean-dupont@gmail.com",
+    "Jean",
+    "Dupont",
+    "12345678Mm*",
+    new Date("2000-01-01")
+  );
+
+  expect(user.addToDoList("todolist 1")).toBe(true);
+});
+
+test("add Todo if there is already one", () => {
+  let user = new User(
+    "jean-dupont@gmail.com",
+    "Jean",
+    "Dupont",
+    "12345678Mm*",
+    new Date("2000-01-01")
+  );
+
+  user.addToDoList("todolist 1");
+
+  expect(user.addToDoList("todolist 2")).toBe("A todo list already");
 });

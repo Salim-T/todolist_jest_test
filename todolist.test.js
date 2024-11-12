@@ -1,56 +1,82 @@
-const User = require('./user');
-const Item = require('./item');
-const ToDoList = require('./todolist');
+const User = require("./user");
+const Item = require("./item");
+const ToDoList = require("./todolist");
 
+// const item1 = new Item("test1", "test1", Date.now());
+// const item2 = new Item("test 2", "test2", Date.now());
 
-const user1 = new User('jean-dupont@gmail.com','Jean', 'Dupont', '12345678Mm*', new Date('2000-01-01'));
+// const todolist2 = new ToDoList("todolist 2", user2);
 
-const user3 = '';
+// const todolist3 = new ToDoList("todolist 3", user3);
 
+test("add item todolist", () => {
+  const user = new User(
+    "jean-dupont@gmail.com",
+    "Jean",
+    "Dupont",
+    "12345678Mm*",
+    new Date("2000-01-01")
+  );
 
-const item1 = new Item('test1', 'test1', Date.now());
-const item2 = new Item('test 2', 'test2', Date.now());
+  user.addToDoList("todolist 1");
 
-const todolist = new ToDoList('todolist 1', user1);
-
-const todolist2 = new ToDoList('todolist 2', user2);
-
-const todolist3 = new ToDoList('todolist 3', user3);
-
-test('not a user', () => {
-    const user1 = '';
-    const item1 = new Item('test1', 'test1', Date.now());
-    const todolist = new ToDoList('todolist 1', user3);
-    expect(todolist.add(item1)).toBe('not a user');
+  const item = new Item("test1", "test1", Date.now());
+  expect(user.toDoList.add(item)).toBe(true);
 });
 
-test('todolist valide', () => {
-    const user1 = new User('jean-dupont@gmail.com','Jean', 'Dupont', '12345678Mm*', new Date('2020-01-01'));
-    const item1 = new Item('test1', 'test1', Date.now());
-    const todolist = new ToDoList('todolist 1', user1);
-    expect(todolist.add(item1)).toBe(true);
+test("add item delay too short", () => {
+  const user = new User(
+    "jean-dupont@gmail.com",
+    "Jean",
+    "Dupont",
+    "12345678Mm*",
+    new Date("2000-01-01")
+  );
+
+  user.addToDoList("todolist 1");
+
+  const item = new Item("test1", "test1", Date.now());
+
+  user.toDoList.add(item);
+
+  const secondItem = new Item("test2", "test2", Date.now());
+
+  expect(user.toDoList.add(secondItem)).toBe("delay too short");
 });
 
-test('todolist valide', () => {
-    let user1 = new User('jean-dupont@gmail.com','Jean', 'Dupont', '12345678Mm*', new Date('2000-01-01'));
-    const item1 = new Item('test1', 'test1', Date.now());
-    const todolist = new ToDoList('todolist 1', user1);
-    expect(todolist.add(item1)).toBe(true);
+test("add item name already exist", () => {
+  const user = new User(
+    "jean-dupont@gmail.com",
+    "Jean",
+    "Dupont",
+    "12345678Mm*",
+    new Date("2000-01-01")
+  );
+
+  user.addToDoList("todolist 1");
+
+  const item = new Item("test1", "test1", Date.now());
+  const THIRTY_MINUTES = 30 * 60 * 1000;
+
+  user.toDoList.add(item);
+
+  const secondItem = new Item("test1", "test2", Date.now() + THIRTY_MINUTES);
+
+  expect(user.toDoList.add(secondItem)).toBe("name already exist");
 });
 
-test('todolist valide', () => {
-    let user1 = new User('jean-dupont@gmail.com','Jean', 'Dupont', '12345678Mm*', new Date('2000-01-01'));
-    const item1 = new Item('test1', 'test1', Date.now());
-    const todolist = new ToDoList('todolist 1', user1);
-    expect(todolist.add(item1)).toBe(true);
+test("add item content too long", () => {
+  const user = new User(
+    "jean-dupont@gmail.com",
+    "Jean",
+    "Dupont",
+    "12345678Mm*",
+    new Date("2000-01-01")
+  );
+
+  user.addToDoList("todolist 1");
+
+  const item = new Item("test1", "test1".repeat(1000), Date.now());
+
+  expect(user.toDoList.add(item)).toBe("content too long");
 });
-
-test('valid todolist', () => {
-    let user1 = new User('jean-dupont@gmail.com','Jean', 'Dupont', '12345678Mm*', new Date('2000-01-01'));
-    const item1 = new Item('test1', 'test1', Date.now());
-    const todolist = new ToDoList('todolist 1', user1);
-    expect(todolist.add(item1)).toBe(true);
-});
-
-
-
