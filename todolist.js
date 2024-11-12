@@ -45,6 +45,10 @@ class ToDoList {
     this.dateLastItem = new Date();
     return true;
   }
+
+  save(item){
+    console.log(`item ${item} saved`);
+  }
 }
 
 module.exports = ToDoList;

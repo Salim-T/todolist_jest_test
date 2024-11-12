@@ -2,8 +2,6 @@ const EmailSenderService = require('./emailSenderService');
 const User = require('./user');
 const Item = require('./item');
 
-// emailSenderService.test.js
-
 test('should send email when 8th item is added', () => {
     let emailSenderService = new EmailSenderService();
     let user = new User('jean-dupont@gmail.com', 'Jean', 'Dupont', '12345678Mm*', new Date('2000-01-01'));
