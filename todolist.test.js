@@ -140,6 +140,7 @@ test("test save", () => {
 
   expect(user.toDoList.save).toHaveBeenCalledTimes(1);
   expect(user.toDoList.save).toHaveBeenCalledWith(item);
+  expect(user.toDoList.save(item)).toBe(`item ${item.name} saved`);
 });
 
 test("test save error", () => {

@@ -89,5 +89,5 @@ test("add Todo if there is already one", () => {
 
   user.addToDoList("todolist 1");
 
-  expect(user.addToDoList("todolist 2")).toBe("A todo list already");
+  expect(user.addToDoList("todolist 2")).toBe("A todo list already exist");
 });

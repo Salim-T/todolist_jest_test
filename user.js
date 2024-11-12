@@ -44,19 +44,15 @@ class User {
 
     if (!this.isValidPassword()) return "Invalid password";
 
-    // if (!this.birthdate instanceof Date) return "Invalid date";
-
     if (!this.isValidBirthDate()) return "Invalid birthdate";
 
     if (!this.isValidLastname()) return "Invalid Lastname";
-
-    // if(!this.birthdate instanceof Date) return "Invalid date";
 
     return true;
   };
 
   addToDoList = (nameTodo) => {
-    if (this.toDoList !== null) return "A todo list already";
+    if (this.toDoList !== null) return "A todo list already exist";
 
     const toDoList = new ToDoList(nameTodo, this);
 
