@@ -27,7 +27,7 @@ class ToDoList {
 
     const diff = dateItem.getTime() - dateLastItem.getTime();
 
-    return diff > THIRTY_MINUTES;
+    return diff >= THIRTY_MINUTES;
   }
 
   add(item) {
@@ -39,13 +39,11 @@ class ToDoList {
 
     if (!this.checkMaxCharContent(item.content)) return "content too long";
 
-    if (this.items.length < 10) {
-      this.items.push(item);
-      this.dateLastItem = new Date();
-      return true;
-    } else {
-      return "list is full";
-    }
+    if (this.items.length >= 10) return "list full";
+
+    this.items.push(item);
+    this.dateLastItem = new Date();
+    return true;
   }
 }
 
